@@ -1,4 +1,5 @@
-Projeto no padrão DAO
+Projeto no padrão DAO.
+
 Este projeto tem como objetivo administrar uma loja de artigos relacionados a informática.
 
 Crie uma DataBase com o nome: lojainformatica, após adicione as tabelas:
