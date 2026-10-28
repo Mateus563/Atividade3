@@ -24,8 +24,30 @@ public class TelaCategoria extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtId.setEditable(false);
+        selecaoTabela();
         carregarCategorias();
     }
+    
+    private void selecaoTabela() {
+    tblItens.getSelectionModel().addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            int linha = tblItens.getSelectedRow();
+
+            if (linha >= 0) {
+                linha = tblItens.convertRowIndexToModel(linha);
+
+                txtId.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 0)));
+
+                txtNome.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 1)));
+
+                txtDescricao.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 2)));
+            }
+        }
+    });
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,7 +73,7 @@ public class TelaCategoria extends javax.swing.JFrame {
         tblItens = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Tela Categoria");
 
@@ -187,20 +209,16 @@ public class TelaCategoria extends javax.swing.JFrame {
             );
             return;
         }
-
         Categoria categoria = new Categoria(0, nome, descricao);
         CategoriaDAO dao = new CategoriaDAO();
 
         try {
-            if (dao.inserir(categoria)) {
-                JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!"
+            if (dao.inserir(categoria)) {JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!"
                 );
-
                 carregarCategorias();
                 limparCampos();
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this,"Erro ao cadastrar categoria: " + e.getMessage()
+        } catch (SQLException e) {JOptionPane.showMessageDialog(this,"Erro ao cadastrar categoria: " + e.getMessage()
             );
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed

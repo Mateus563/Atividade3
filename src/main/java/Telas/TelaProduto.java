@@ -24,8 +24,39 @@ public class TelaProduto extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtId.setEditable(false);
+        selecaoTabela();
         carregarProdutos();
     }
+    
+    private void selecaoTabela() {
+    tblItens.getSelectionModel().addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            int linha = tblItens.getSelectedRow();
+
+            if (linha >= 0) {
+                linha = tblItens.convertRowIndexToModel(linha);
+
+                txtId.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 0)));
+
+                txtNome.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 1)));
+
+                txtDescricao.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 2)));
+
+                txtPreco.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 3)));
+
+                txtQuantEstoque.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 4)));
+
+                txtCodCategoria.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 5)));
+            }
+        }
+    });
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,7 +88,7 @@ public class TelaProduto extends javax.swing.JFrame {
         btnRemover = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Tela Produto");
 

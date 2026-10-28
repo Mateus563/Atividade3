@@ -24,9 +24,40 @@ public class TelaCliente extends javax.swing.JFrame {
     public TelaCliente() {
         initComponents();
         setLocationRelativeTo(null);
-        txtId.setEditable(false);
+        txtId.setEditable(false);        
+        selecaoTabela();
         carregarClientes();
     }
+    
+    private void selecaoTabela() {
+    tblItens.getSelectionModel().addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            int linha = tblItens.getSelectedRow();
+
+            if (linha >= 0) {
+                linha = tblItens.convertRowIndexToModel(linha);
+
+                txtId.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 0)));
+
+                txtNome.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 1)));
+
+                txtCpf.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 2)));
+
+                txtTelefone.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 3)));
+
+                txtEmail.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 4)));
+
+                txtCep.setText(String.valueOf(
+                    tblItens.getModel().getValueAt(linha, 5)));
+            }
+        }
+    });
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +89,7 @@ public class TelaCliente extends javax.swing.JFrame {
         tblItens = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("ID");
 
